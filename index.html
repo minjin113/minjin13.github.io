@@ -12,58 +12,7 @@ var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>네이버 지도 - 마커 추가</title>
-    <script 
-        type="text/javascript" 
-        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID">
-    </script>
-    <style>
-        #map {
-            width: 100%;
-            height: 600px;
-        }
-    </style>
-</head>
-<body>
-    
-    <div id="map"></div>
-
-    <script>
-        // 1. 네이버 지도 초기화
-        var map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(37.581, 127.03), // 초기 중심 좌표
-            zoom: 14 // 확대 레벨
-        });
-
-        // 2. 추가할 좌표 목록
-        var coordinates = [
-            { lat: 37.581, lng: 127.03 },
-            { lat: 37.598, lng: 127.06 },
-            { lat: 37.576, lng: 127.047 },
-            { lat: 37.580, lng: 127.052 },
-            { lat: 37.576, lng: 127.061 }
-        ];
-
-        // 3. 지도에 마커 추가 (정보창 없음)
-        coordinates.forEach(function(coord) {
-            new naver.maps.Marker({
-                position: new naver.maps.LatLng(coord.lat, coord.lng),
-                map: map
-            });
-        });
-    </script>
-</body>
-</html>
-
-
-
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>네이버 지도 - 열지도(히트맵)</title>
+    <title>네이버 지도 - 히트맵</title>
     <script 
         type="text/javascript" 
         src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID&submodules=visualization">
@@ -71,22 +20,22 @@ var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
     <style>
         #map {
             width: 100%;
-            height: 600px;
+            height: 100%;
         }
     </style>
 </head>
 <body>
-    <h1>네이버 지도에 열지도(히트맵) 표시</h1>
+    <h1>히트맵으로 좌표 시각화</h1>
     <div id="map"></div>
 
     <script>
         // 1. 네이버 지도 초기화
         var map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(37.581, 127.03), // 중심 좌표
+            center: new naver.maps.LatLng(37.581, 127.03), // 지도 중심 좌표
             zoom: 14 // 확대 레벨
         });
 
-        // 2. 좌표 데이터 (열지도에 사용될 좌표들)
+        // 2. 히트맵 데이터: 제공된 좌표 목록
         var heatmapData = [
             new naver.maps.LatLng(37.581, 127.03),
             new naver.maps.LatLng(37.598, 127.06),
@@ -106,8 +55,3 @@ var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
     </script>
 </body>
 </html>
-
-    
-</script>
-
-  
