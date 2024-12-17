@@ -12,10 +12,10 @@ var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>네이버 지도 - 히트맵</title>
+    <title>네이버 지도 - 히트맵 + 마커</title>
     <script 
         type="text/javascript" 
-        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_REAL_CLIENT_ID&submodules=visualization">
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID&submodules=visualization">
     </script>
     <style>
         #map {
@@ -25,33 +25,47 @@ var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
     </style>
 </head>
 <body>
-    <h1>히트맵 표시</h1>
+    <h1>네이버 지도에 히트맵과 마커 표시</h1>
     <div id="map"></div>
 
     <script>
         // 1. 네이버 지도 초기화
         var map = new naver.maps.Map('map', {
             center: new naver.maps.LatLng(37.581, 127.03), // 중심 좌표
-            zoom: 14 // 확대 레벨
+            zoom: 13 // 확대 레벨
         });
 
-        // 2. 히트맵 데이터
-        var heatmapData = [
-            new naver.maps.LatLng(37.581, 127.03),
-            new naver.maps.LatLng(37.598, 127.06),
-            new naver.maps.LatLng(37.576, 127.047),
-            new naver.maps.LatLng(37.580, 127.052),
-            new naver.maps.LatLng(37.576, 127.061)
+        // 2. 좌표 데이터 (마커 + 히트맵에 사용될 데이터)
+        var coordinates = [
+            { lat: 37.581, lng: 127.03 },
+            { lat: 37.598, lng: 127.06 },
+            { lat: 37.576, lng: 127.047 },
+            { lat: 37.580, lng: 127.052 },
+            { lat: 37.576, lng: 127.061 }
         ];
 
-        // 3. 히트맵 생성
+        // 3. 히트맵 데이터로 변환
+        var heatmapData = coordinates.map(function(coord) {
+            return new naver.maps.LatLng(coord.lat, coord.lng);
+        });
+
+        // 4. 히트맵 생성
         var heatmap = new naver.maps.visualization.HeatMap({
             map: map,
             data: heatmapData,
-            radius: 30,    // 반경 설정
-            opacity: 0.7,  // 투명도 설정
+            radius: 30,    // 반경 설정 (픽셀 단위)
+            opacity: 0.6,  // 투명도 설정
             colorMap: naver.maps.visualization.SpectrumStyle.HOT // 색상 스타일
+        });
+
+        // 5. 지도에 마커 추가
+        coordinates.forEach(function(coord) {
+            new naver.maps.Marker({
+                position: new naver.maps.LatLng(coord.lat, coord.lng),
+                map: map
+            });
         });
     </script>
 </body>
 </html>
+
