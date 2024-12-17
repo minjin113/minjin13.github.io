@@ -15,27 +15,27 @@ var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
     <title>네이버 지도 - 히트맵</title>
     <script 
         type="text/javascript" 
-        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID&submodules=visualization">
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_REAL_CLIENT_ID&submodules=visualization">
     </script>
     <style>
         #map {
             width: 100%;
-            height: 100%;
+            height: 600px;
         }
     </style>
 </head>
 <body>
-    <h1>히트맵으로 좌표 시각화</h1>
+    <h1>히트맵 표시</h1>
     <div id="map"></div>
 
     <script>
         // 1. 네이버 지도 초기화
         var map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(37.581, 127.03), // 지도 중심 좌표
+            center: new naver.maps.LatLng(37.581, 127.03), // 중심 좌표
             zoom: 14 // 확대 레벨
         });
 
-        // 2. 히트맵 데이터: 제공된 좌표 목록
+        // 2. 히트맵 데이터
         var heatmapData = [
             new naver.maps.LatLng(37.581, 127.03),
             new naver.maps.LatLng(37.598, 127.06),
@@ -46,10 +46,10 @@ var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
 
         // 3. 히트맵 생성
         var heatmap = new naver.maps.visualization.HeatMap({
-            map: map,                // 히트맵을 표시할 지도 객체
-            data: heatmapData,       // 좌표 데이터
-            radius: 40,              // 히트맵 반경 (픽셀 단위)
-            opacity: 0.6,            // 투명도 (0 ~ 1)
+            map: map,
+            data: heatmapData,
+            radius: 30,    // 반경 설정
+            opacity: 0.7,  // 투명도 설정
             colorMap: naver.maps.visualization.SpectrumStyle.HOT // 색상 스타일
         });
     </script>
