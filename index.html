@@ -7,28 +7,25 @@
 //지도를 삽입할 HTML 요소 또는 HTML 요소의 id를 지정합니다.
 var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
 
-var heatmap_data = [];
-
-
-    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>네이버 지도 - 마커 표시</title>
+    <title>네이버 지도 - 히트맵 + 마커 표시</title>
     <script 
         type="text/javascript" 
-        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID">
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID&submodules=visualization">
     </script>
     <style>
         #map {
             width: 100%;
-            height: 100%;
+            height: 600px;
         }
     </style>
 </head>
 <body>
+    <h1>네이버 지도 - 마커와 히트맵 표시</h1>
     <div id="map"></div>
 
     <script>
@@ -38,7 +35,7 @@ var heatmap_data = [];
             zoom: 13 // 확대 레벨
         });
 
-        // 2. 추가할 좌표 목록
+        // 2. 좌표 목록 설정
         var coordinates = [
             { lat: 37.581, lng: 127.03 },
             { lat: 37.598, lng: 127.06 },
@@ -47,22 +44,28 @@ var heatmap_data = [];
             { lat: 37.576, lng: 127.061 }
         ];
 
-        // 3. 지도에 마커 추가
+        // 3. 빈 히트맵 데이터 배열 초기화
+        var heatmap_data = [];
+
+        // 4. 지도에 마커 추가 및 히트맵 데이터 준비
         coordinates.forEach(function(coord) {
+            // 마커 추가
             new naver.maps.Marker({
-                position: new naver.maps.LatLng(coord.lat, coord.lng), // 마커 위치
-                map: map // 마커를 표시할 지도 객체
+                position: new naver.maps.LatLng(coord.lat, coord.lng),
+                map: map
             });
+
+            // 히트맵 데이터 추가
+            heatmap_data.push(new naver.maps.LatLng(coord.lat, coord.lng));
         });
 
-
-heatmap_data.push(new naver.maps.LatLng(37.581,127.03),new naver.maps.LatLng(37.598,127.06),new naver.maps.LatLng(37.576,127.047),new naver.maps.LatLng(37.580,127.052),new naver.maps.LatLng(37.576,127.061))
-naver.maps.onJSContentLoaded = function() {
-    var heatmap = new naver.maps.visualization.HeatMap({
-        map: map,
-        data: heatmap_data
-    });
-}; 
+        // 5. 히트맵 생성
+        var heatmap = new naver.maps.visualization.HeatMap({
+            map: map,              // 히트맵을 표시할 지도 객체
+            data: heatmap_data,    // 준비된 좌표 데이터
+            radius: 40,            // 히트맵 반경 (픽셀 단위)
+            opacity: 0.7           // 히트맵 투명도
+        });
     </script>
 </body>
 </html>
