@@ -9,7 +9,7 @@ var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
 
 var map = new naver.maps.Map('map', {
     center: new naver.maps.LatLng(37.3595704, 127.105399),
-    zoom: 9
+    zoom: 12
 });
 var marker = new naver.maps.Marker({
     position: 
@@ -18,23 +18,8 @@ var marker = new naver.maps.Marker({
         new naver.maps.LatLng(37.576,127.047)
         new naver.maps.LatLng(37.580,127.052)
         new naver.maps.LatLng(37.576,127.061)
-        map: map
+       
 });
-
-  var data = [
-    new naver.maps.LatLng(37.581,127.03),
-    new naver.maps.LatLng(37.598,127.06),
-    new naver.maps.LatLng(37.576,127.047),
-    new naver.maps.LatLng(37.580,127.052),
-    new naver.maps.LatLng(37.576,127.061)
-];
-
-naver.maps.onJSContentLoaded = function() {
-    var heatmap = new naver.maps.visualization.HeatMap({
-        map: map,
-        data: data
-    });
-};
 </script>
 
   
